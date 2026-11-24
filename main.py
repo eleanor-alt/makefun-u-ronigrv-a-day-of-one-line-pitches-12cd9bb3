@@ -17,6 +17,11 @@ SENTENCE = (
 
 
 def main() -> None:
+    # Guard the gate: one sentence, 1-240 characters, no line break inside.
+    if not 1 <= len(SENTENCE) <= 240:
+        raise ValueError(f"pitch is {len(SENTENCE)} chars, must be 1-240")
+    if "\n" in SENTENCE or not SENTENCE.strip():
+        raise ValueError("pitch must be a single non-blank sentence")
     out = Path("/output/entry.txt")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(SENTENCE, encoding="utf-8")
